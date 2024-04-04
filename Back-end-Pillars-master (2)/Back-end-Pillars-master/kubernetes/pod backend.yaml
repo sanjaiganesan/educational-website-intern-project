@@ -1,0 +1,17 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: backend-deployment
+spec:
+  replicas: 1
+        app: backend
+  template:
+    metadata:
+      labels:
+        app: backend
+    spec:
+      containers:
+        - name: backend
+          image: public.ecr.aws/n6h4i3k0/backenddevops:${BUILD_NUMBER}
+          ports:
+            - containerPort: 5000

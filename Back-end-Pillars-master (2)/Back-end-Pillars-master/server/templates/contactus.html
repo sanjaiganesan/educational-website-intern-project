@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>  
+</head>
+<body style="
+min-height: 50vh;
+flex-direction: column;
+font-family: 'poppins',sans-serif;
+background-color: #ffa45b;
+overflow: hidden;">
+    <div style="
+    margin: 50px auto;
+    width: 60vw;
+    height: 60vh;
+    padding: 20px;
+    background-color: #fff;
+    border: 1px solid rgba(0,0,0,0.2);
+    border-radius: 20px;
+    gap: 35px;">
+        <h1 style=" text-transform: uppercase;
+        letter-spacing: 5px;">Kadit</h1>
+        <label>Name:</label>
+        <p style="
+        padding: 20px;
+        background-color: #30303020;
+        border-radius: 5px;">{{data.full_name}}</p>
+        <label>E-mail:</label>
+        <p style="
+        padding: 20px;
+        background-color: #30303020;
+        border-radius: 5px;">{{data.email}}</p>
+        <label>Message:</label>
+        <p style="
+        padding: 20px;
+        background-color: #30303020;
+        border-radius: 5px;">{{data.message_content}}</p>
+    </div> 
+</body>
+</html>

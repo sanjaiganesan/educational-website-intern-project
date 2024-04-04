@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Password Reset</title>
+    <style>
+        *
+        {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body
+        {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            flex-direction: column;
+            font-family: 'poppins',sans-serif;
+            background-color: #ffa45b;
+            overflow: hidden;
+        }
+
+        form
+        {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            width: 450px;
+            height: 400px;
+            padding: 5px;
+            background-color: #fff;
+            border: 1px solid rgba(0,0,0,0.2);
+            border-radius: 20px;
+            gap: 5px;
+        }
+
+        input
+        {
+            width: 90%;
+            padding: 15px;
+            font-size: 1.15rem;
+            border: 1px solid #303030;
+            border-radius: 5px;
+            outline: none;
+        }
+
+        input[type="submit"]
+        {
+            font-size: 1rem;
+            color: #fff;
+            background-color: #303030;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        input[type="submit"]:disabled
+        {
+            filter: brightness(0.5);
+            cursor: not-allowed;
+        }
+        div
+        {
+            margin-left: 5%;
+            align-self: flex-start;
+            display: grid;
+            place-items: center;
+            padding: 5px;
+            grid-template-columns: repeat(2,auto);
+            gap: 5px;
+        }
+
+        .msg
+        {
+            color: green;
+        }
+    </style>
+</head>
+<body>
+    <form method="POST" action="{{ url_for('reset_password', reset_token=reset_token) }}">
+        <h1>Password Reset</h1>
+        <span class="msg">{{message}}</span>
+        <input type="password" id="new_password" name="new_password" placeholder="New password" onkeyup="check()" required>
+        <input type="password" id="confirm_password" name="confirm_password" placeholder="confirm password" onkeyup="check()" required>
+        <div>
+            <input type="checkbox" id="checkbox">
+            <p>Show password</p>
+        </div>
+        <input type="submit" id="submit" value="Reset Password" disabled>
+    </form>
+    <script>
+        let newPassword = document.getElementById('new_password')
+        let confirmPassword = document.getElementById('confirm_password')
+        let submit = document.getElementById('submit')
+        let checkBox = document.getElementById('checkbox')
+
+        checkBox.addEventListener('change',() => {
+            newPassword.type = newPassword.type === "password" ? "text" : "password"
+            confirmPassword.type = confirmPassword.type === "password" ? "text" : "password"
+        })
+        const check = () => {
+            if(newPassword.value !== '' && confirmPassword !== '')
+            {
+                if(newPassword.value === confirmPassword.value)
+                {
+                    submit.removeAttribute('disabled')
+                    if(!passwordValidator(newPassword.value) || !passwordValidator(confirmPassword.value))
+                    {
+                        alert("password should have minimum 8 character with the combination of uppercase,lowercase,numbers and special character")
+                    }
+                }
+
+                else
+                {
+                    submit.setAttribute('disabled',true)
+                }
+            }
+        }
+
+    const passwordValidator = password => {
+        const passwordRegex = /^(?=.*?[A-Z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,20}$/;
+        return passwordRegex.test(password)
+    }
+    </script>        
+</body>
+</html>
